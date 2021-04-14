@@ -26,13 +26,14 @@ class UserProvider {
     return {'ok': false, 'message': data['error']['message']};
   }
 
-  Future<dynamic> registerUserData(Map user, Map payload) async {
+  Future<Map<String, dynamic>> registerUserData(Map user, Map payload) async {
     final userId = user['userId'];
     final token = user['token'];
 
     final url = Uri.https(constants.FIRESTORE_URL, '/users/$userId', {'auth': token});
     final res = await http.post(url);
-    final data = json.decode(res.body);
+    Map<String, dynamic> data = json.decode(res.body);
+    
     return data;
   }
 }

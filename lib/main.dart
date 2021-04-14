@@ -1,5 +1,6 @@
 import 'package:delivery/pages/home-page.dart';
 import 'package:delivery/pages/login-page.dart';
+import 'package:delivery/pages/welcome-page.dart';
 import 'package:delivery/prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Delivery',
         debugShowCheckedModeBanner: false,
-        initialRoute: prefs.token != '' ? 'home' : 'login',
+        initialRoute: prefs.token != '' ? 'home' : 'welcome',
         routes: {
           'home': (BuildContext _) => HomePage(),
-          'login': (BuildContext _) => LoginPage()
-        });
+          'login': (BuildContext _) => LoginPage(),
+          'welcome': (BuildContext _) => WelcomePage(),
+        },
+        theme: ThemeData(
+          primaryColor: Color(0xFFE8D639)
+        ),
+    );
   }
 }
