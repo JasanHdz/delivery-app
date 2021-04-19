@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email = '';
   String _password = '';
+  String _error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,9 +123,14 @@ class _LoginPageState extends State<LoginPage> {
   void _handleSubmit() async {
     print(_email);
     print(_password);
-    final payload = await userProvider.loginWithEmailAndPassword(_email, _password);
-    if(payload['ok']) {
+    final payload =
+        await userProvider.loginWithEmailAndPassword(_email, _password);
+    if (payload['ok']) {
       Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+    } else {
+      setState(() {
+        _error = payload['error'];
+      });
     }
   }
 }

@@ -61,14 +61,14 @@ class UserProvider {
     final authData = _getAuthData(email, password);
 
     try {
-      final url = Uri.https(
-        'identitytoolkit.googleapis.com',
+      Uri url = Uri.https(
+        constants.FIREBASE_AUTH,
         'v1/accounts:signInWithPassword', 
         {'key': constants.PUBLIC_API_KEY}
       );
 
-      final res = await http.post(url, body: jsonEncode(authData));
-      final Map<String, dynamic> data = json.decode(res.body);
+      http.Response res = await http.post(url, body: jsonEncode(authData));
+      Map<String, dynamic> data = json.decode(res.body);
       
       if (data.containsKey('idToken')) {
         setSession(data['idToken'], int.parse(data['expiresIn']));
@@ -78,9 +78,9 @@ class UserProvider {
           'userId': data['localId']
         };
       }
-      return {'ok': false, 'message': data['error']['message']};
+      return {'ok': false, 'error': data['error']['message']};
     } catch (error) {
-      return {'ok': false, 'message': error['error']['message']};
+      return {'ok': false, 'error': error['error']['message']};
     }
   }
 }

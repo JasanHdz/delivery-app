@@ -17,7 +17,7 @@ class UserPreferents {
   // Methods GET and SET
   get token {
     final dateString = _prefs.getString('expirationToken');
-    if(dateString != null) {
+    if (dateString != null) {
       final expirationToken = DateTime.parse(dateString);
       final today = new DateTime.now();
       if (expirationToken.isBefore(today)) {

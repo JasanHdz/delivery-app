@@ -29,6 +29,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^0.5.12+4
   http:
+  provider: ^4.3.2+2
+  google_maps_flutter: ^2.0.3
 
 dev_dependencies:
   flutter_test:

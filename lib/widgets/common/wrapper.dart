@@ -12,7 +12,7 @@ class WrapperWidget extends StatelessWidget {
       child: Container(
         // color: Colors.red,
         width: MediaQuery.of(context).size.width * 0.92,
-        height: MediaQuery.of(context).size.height * 0.92,        
+        height: MediaQuery.of(context).size.height * 0.92,          
         child: child,
       ),
     );
