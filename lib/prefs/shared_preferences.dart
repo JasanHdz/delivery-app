@@ -17,11 +17,12 @@ class UserPreferents {
   // Methods GET and SET
   get token {
     final dateString = _prefs.getString('expirationToken');
-    if (dateString != null) {
+    if (dateString != null && dateString != '') {
       final expirationToken = DateTime.parse(dateString);
       final today = new DateTime.now();
       if (expirationToken.isBefore(today)) {
         _prefs.setString('token', '');
+        _prefs.setString('expirationToken', '');
       }
     }
     return _prefs.getString('token') ?? '';
