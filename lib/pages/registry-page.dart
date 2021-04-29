@@ -39,6 +39,7 @@ class _RegistryPageState extends State<RegistryPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Padding(padding: EdgeInsets.only(top: 10.0)),
               Text('¿Ya tienes una cuenta?'),
               SizedBox(height: 5.0),
               ButtonWidget(
@@ -75,35 +76,47 @@ class _RegistryPageState extends State<RegistryPage> {
     final spaceHeight = 20.0;
     final spaceWidth = 12.0;
     return [
-      _createTextField(label: 'Nombres(s)', type: TextInputType.name, onChanged: (value) {
-        setState(() {
-          _fullName = value;
-        });
-      }),
+      _createTextField(
+          label: 'Nombres(s)',
+          type: TextInputType.name,
+          onChanged: (value) {
+            setState(() {
+              _fullName = value;
+            });
+          }),
       SizedBox(height: spaceHeight),
       Row(children: [
         Flexible(
-          child: _createTextField(label: 'Apellido Paterno', type: TextInputType.name, onChanged: (value) {
-            setState(() {
-              _lastName = value;
-            });
-          }),
+          child: _createTextField(
+              label: 'Apellido Paterno',
+              type: TextInputType.name,
+              onChanged: (value) {
+                setState(() {
+                  _lastName = value;
+                });
+              }),
         ),
         SizedBox(width: spaceWidth),
         Flexible(
-          child: _createTextField(label: 'Apellido Materno', type: TextInputType.name, onChanged: (value) {
-            setState(() {
-              _largeName = value;
-            });
-          }),
+          child: _createTextField(
+              label: 'Apellido Materno',
+              type: TextInputType.name,
+              onChanged: (value) {
+                setState(() {
+                  _largeName = value;
+                });
+              }),
         )
       ]),
       SizedBox(height: spaceHeight),
-      _createTextField(label: 'Dirección', type: TextInputType.emailAddress, onChanged: (value) {
-        setState(() {
-          _address = value;
-        });
-      }),
+      _createTextField(
+          label: 'Dirección',
+          type: TextInputType.emailAddress,
+          onChanged: (value) {
+            setState(() {
+              _address = value;
+            });
+          }),
       SizedBox(height: spaceHeight),
       Row(children: [
         Flexible(
@@ -115,23 +128,29 @@ class _RegistryPageState extends State<RegistryPage> {
         ),
         SizedBox(width: spaceWidth),
         Flexible(
-          child: _createDropDown(userItems, (value) {
-            _user = value;
-          })
-        )
+            child: _createDropDown(userItems, (value) {
+          _user = value;
+        }))
       ]),
       SizedBox(height: spaceHeight),
-      _createTextField(label: 'email', type: TextInputType.emailAddress, onChanged: (value) {
-        setState(() {
-          _email = value;
-        });
-      }),
+      _createTextField(
+          label: 'Email',
+          type: TextInputType.emailAddress,
+          onChanged: (value) {
+            setState(() {
+              _email = value;
+            });
+          }),
       SizedBox(height: spaceHeight),
-      _createTextField(label: 'Password', obscureText: true, type: TextInputType.visiblePassword, onChanged: (value) {
-        setState(() {
-          _password = value;
-        });
-      }),
+      _createTextField(
+          label: 'Password',
+          obscureText: true,
+          type: TextInputType.visiblePassword,
+          onChanged: (value) {
+            setState(() {
+              _password = value;
+            });
+          }),
       SizedBox(height: spaceHeight),
       ButtonWidget(
           text: 'registrarme'.toUpperCase(),
@@ -145,7 +164,11 @@ class _RegistryPageState extends State<RegistryPage> {
     ];
   }
 
-  Widget _createTextField({ String label,  TextInputType type = TextInputType.text, Function onChanged, bool obscureText = false }) {
+  Widget _createTextField(
+      {String label,
+      TextInputType type = TextInputType.text,
+      Function onChanged,
+      bool obscureText = false}) {
     return TextField(
       obscureText: obscureText,
       decoration:
@@ -163,7 +186,12 @@ class _RegistryPageState extends State<RegistryPage> {
         ),
         value: items[0],
         items: items.map((element) {
-          return DropdownMenuItem(child: Text(element), value: element);
+          return DropdownMenuItem(
+              child: Text(
+                element,
+                style: TextStyle(fontSize: 13.5),
+              ),
+              value: element);
         }).toList());
   }
 
@@ -196,7 +224,7 @@ class _RegistryPageState extends State<RegistryPage> {
     final user = await UserProvider().createUser(_email, _password);
     await UserProvider().registerUserData(user, payload);
 
-    if(user['ok']) {
+    if (user['ok']) {
       Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
     }
   }

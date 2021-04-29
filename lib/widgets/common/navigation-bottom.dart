@@ -14,15 +14,13 @@ class NavigationBottomWidget extends StatelessWidget {
       onTap: (int i) => uiProvider.selectedMenuOpt = i,
       items: [
         _createItem(Icons.directions, 'Direcciones'),
+        _createItem(Icons.shopping_bag_outlined, 'Ordenes'),
         _createItem(Icons.map, 'Mapa'),
       ],
     );
   }
 
   BottomNavigationBarItem _createItem(IconData icon, String title) {
-    return BottomNavigationBarItem(
-      icon: Icon(icon),
-      label: title
-    );
+    return BottomNavigationBarItem(icon: Icon(icon), label: title);
   }
 }

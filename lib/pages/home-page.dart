@@ -1,8 +1,8 @@
 import 'package:delivery/pages/map-page.dart';
+import 'package:delivery/pages/order-page.dart';
 import 'package:delivery/providers/ui-provider.dart';
 import 'package:delivery/widgets/common/drawer.dart';
 import 'package:delivery/widgets/common/navigation-bottom.dart';
-import 'package:delivery/widgets/common/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +27,8 @@ class _AppBody extends StatelessWidget {
     switch (currentIndex) {
       case 0:
         return Center(child: Text('Home Page'));
+      case 1:
+        return OrderInformation();
       default:
         return MapPage();
     }
