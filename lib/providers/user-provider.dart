@@ -109,4 +109,24 @@ class UserProvider {
       return {'ok': false};
     }
   }
+  
+  Future<Map<String, dynamic>> creatOrder(token, payload) async {
+    try {
+      final url = Uri.https(
+        constants.FIRESTORE_HOST,
+        '${constants.FIRESTORE_PATH}/orders',
+      );
+      final http.Response res = await http.post(url, body: jsonEncode(payload), headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      });
+      Map<String, dynamic> rawData = await json.decode(res.body);
+      Map<String, dynamic> data = transforFieldToValues(rawData);
+      return data;
+    } catch (error) {
+      print(error);
+      return {'ok': false};
+    }
+  }
 }

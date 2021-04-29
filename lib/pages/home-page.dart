@@ -1,5 +1,6 @@
 import 'package:delivery/pages/map-page.dart';
 import 'package:delivery/prefs/shared_preferences.dart';
+import 'package:delivery/pages/order-page.dart';
 import 'package:delivery/providers/ui-provider.dart';
 import 'package:delivery/providers/user-provider.dart';
 import 'package:delivery/widgets/common/drawer.dart';
@@ -46,6 +47,8 @@ class _AppBody extends StatelessWidget {
     switch (currentIndex) {
       case 0:
         return Center(child: Text('Home Page'));
+      case 1:
+        return OrderInformation();
       default:
         return MapPage();
     }

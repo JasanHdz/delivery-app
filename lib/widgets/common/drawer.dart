@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:delivery/prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 

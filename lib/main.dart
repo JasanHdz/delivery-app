@@ -1,5 +1,6 @@
 import 'package:delivery/pages/home-page.dart';
 import 'package:delivery/pages/login-page.dart';
+import 'package:delivery/pages/order-page.dart';
 import 'package:delivery/pages/registry-page.dart';
 import 'package:delivery/pages/welcome-page.dart';
 import 'package:delivery/prefs/shared_preferences.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           'login': (BuildContext _) => LoginPage(),
           'registry': (BuildContext _) => RegistryPage(),
           'welcome': (BuildContext _) => WelcomePage(),
+          'order': (BuildContext _) => OrderInformation(),
         },
         theme: ThemeData(primaryColor: Color(0xFFE8D639)),
       ),
