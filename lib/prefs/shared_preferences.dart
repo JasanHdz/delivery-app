@@ -23,6 +23,9 @@ class UserPreferents {
       if (expirationToken.isBefore(today)) {
         _prefs.setString('token', '');
         _prefs.setString('expirationToken', '');
+        _prefs.setString('userId', '');
+        _prefs.setString('userName', '');
+        _prefs.setString('userRoll', '');
       }
     }
     return _prefs.getString('token') ?? '';
@@ -40,11 +43,27 @@ class UserPreferents {
     _prefs.setString('expirationToken', value);
   }
 
+  get userId {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set userId(String value) {
+    _prefs.setString('userId', value);
+  }
+
   get userName {
     return _prefs.getString('userName') ?? '';
   }
 
   set userName(String value) {
     _prefs.setString('userName', value);
+  }
+  
+  get userRoll {
+    return _prefs.getString('userRoll') ?? '';
+  }
+
+  set userRoll(String value) {
+    _prefs.setString('userRoll', value);
   }
 }

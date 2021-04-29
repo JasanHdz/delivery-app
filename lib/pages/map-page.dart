@@ -28,7 +28,7 @@ class _MapPageState extends State<MapPage> {
   Set<Marker> markers = {};
 
   // Object for PolylinePoints
-  PolylinePoints polylinePoints;
+  PolylinePoints polylinePoints = PolylinePoints();
 
   // List of coordinates to join
   List<LatLng> polylineCoordinates = [];
@@ -37,29 +37,31 @@ class _MapPageState extends State<MapPage> {
   // two points
   Map<PolylineId, Polyline> polylines = {};
 
-  Position _originPosition = Position(latitude: 19.0576039, longitude: -98.2094129);
-  Position _destinationPosition = Position(latitude: 20.468327, longitude: -97.7150412);
+  Position _originPosition =
+      Position(latitude: 19.0576039, longitude: -98.2094129);
+  Position _destinationPosition =
+      Position(latitude: 20.4700061, longitude: -97.715806);
 
-  _getCurrentLocation() async {
-    await _geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) async {
-      setState(() {
-        // Store the position in the variable
-        // _currentPosition = position;
+  // _getCurrentLocation() async {
+  //   await _geolocator
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) async {
+  //     setState(() {
+  //       // Store the position in the variable
+  //       // _currentPosition = position;
 
-        print('CURRENT POS: $_currentPosition');
+  //       print('CURRENT POS: $_currentPosition');
 
-        // For moving the camera to current location
-        mapController.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 18.0)));
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
+  //       // For moving the camera to current location
+  //       mapController.animateCamera(CameraUpdate.newCameraPosition(
+  //           CameraPosition(
+  //               target: LatLng(position.latitude, position.longitude),
+  //               zoom: 18.0)));
+  //     });
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  // }
 
   _addMarkers() {
     Marker startMarker = Marker(
@@ -73,7 +75,8 @@ class _MapPageState extends State<MapPage> {
 
     Marker destinationMarker = Marker(
         markerId: MarkerId('idDestination'),
-        position: LatLng(_destinationPosition.latitude, _destinationPosition.longitude),
+        position: LatLng(
+            _destinationPosition.latitude, _destinationPosition.longitude),
         infoWindow: InfoWindow(title: 'Destination', snippet: 'Punto de fin'),
         icon: BitmapDescriptor.defaultMarker);
 
@@ -82,19 +85,21 @@ class _MapPageState extends State<MapPage> {
     markers.add(destinationMarker);
   }
 
-  _addPolyLine() {
-    PolylineId id = PolylineId("poly");
-    Polyline polyline = Polyline(polylineId: id, color: Colors.red, points: polylineCoordinates);
-    polylines[id] = polyline;
-    setState(() {});
-  }
+  // _addPolyLine() {
+  //   PolylineId id = PolylineId("poly");
+  //   Polyline polyline = Polyline(
+  //       polylineId: id, color: Colors.red, points: polylineCoordinates);
+  //   polylines[id] = polyline;
+  //   setState(() {});
+  // }
 
   _getPolyline() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       secrets.API_KEY, // Google Maps API Key
-      PointLatLng(_originPosition.latitude, _originPosition.latitude),
-      PointLatLng(_destinationPosition.latitude, _destinationPosition.latitude),
-      travelMode: TravelMode.transit,
+      PointLatLng(_originPosition.latitude, _originPosition.longitude),
+      PointLatLng(
+          _destinationPosition.latitude, _destinationPosition.longitude),
+      travelMode: TravelMode.driving,
     );
 
     if (result.points.isNotEmpty) {
@@ -103,7 +108,20 @@ class _MapPageState extends State<MapPage> {
       });
     }
 
-    _addPolyLine();
+    // Defining an ID
+    PolylineId id = PolylineId('poly');
+
+    // Initializing Polyline
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: Colors.red,
+      points: polylineCoordinates,
+      width: 3,
+    );
+
+    // Adding the polyline to the map
+    polylines[id] = polyline;
+    setState(() {});
   }
 
   _createButton(IconData icon, CameraUpdate cameraUpdate) {
@@ -146,10 +164,8 @@ class _MapPageState extends State<MapPage> {
           zoomGesturesEnabled: true,
           zoomControlsEnabled: false,
           polylines: Set<Polyline>.of(polylines.values),
-          onMapCreated: (GoogleMapController controller) {
-            setState(() {
-              mapController = controller;
-            });
+          onMapCreated: (GoogleMapController controller) async {
+            mapController = controller;
           },
         ),
         SafeArea(

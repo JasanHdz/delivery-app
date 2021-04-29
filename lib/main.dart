@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print(prefs.token);
     print(prefs.expirationToken);
+    print(prefs.userName);
+    print(prefs.userRoll);
     return ChangeNotifierProvider(
       create: (BuildContext _) => new UIProvider(),
       child: MaterialApp(

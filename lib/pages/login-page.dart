@@ -123,13 +123,11 @@ class _LoginPageState extends State<LoginPage> {
   void _handleSubmit() async {
     print(_email);
     print(_password);
-    final payload =
-        await userProvider.loginWithEmailAndPassword(_email, _password);
+    final payload = await userProvider.loginWithEmailAndPassword(_email, _password);
     if (payload['ok']) {
       Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
     } else {
       setState(() {
-        // print(payload['error']);
         _error = payload['error'];
       });
     }

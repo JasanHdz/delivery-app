@@ -20,5 +20,17 @@ Map<String, dynamic> transforValuesToFields(Map<String, dynamic> payload) {
     }
   }
 
-  return {'fields': result };
+  return {'fields': result};
+}
+
+Map<String, dynamic> transforFieldToValues(data) {
+  final Map<String, dynamic> newObject = {};
+  final Map<String, dynamic> fields = data['fields'];
+
+  fields.forEach((String key, field) {
+    final tempValue = field.values.toList()[0];
+    newObject[key] = tempValue;
+  });
+
+  return newObject;
 }

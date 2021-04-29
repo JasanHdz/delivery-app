@@ -13,7 +13,7 @@ class DrawerWidget extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             child: DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text(_prefs.userName),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
               ),
@@ -56,6 +56,9 @@ class DrawerWidget extends StatelessWidget {
   void _logoutSession(BuildContext context) {
     _prefs.token = '';
     _prefs.expirationToken = '';
+    _prefs.userId = '';
+    _prefs.userName = '';
+    _prefs.userRoll = '';
     Navigator.pushNamedAndRemoveUntil(context, 'welcome', (route) => false);
   }
 }
